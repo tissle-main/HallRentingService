@@ -1,0 +1,5 @@
+{
+  "appHost": {
+    "path": "HallRentingService.AppHost/HallRentingService.AppHost.csproj"
+  }
+}

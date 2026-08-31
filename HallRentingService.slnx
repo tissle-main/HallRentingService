@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="HallRentingService.AppHost/HallRentingService.AppHost.csproj" />
+  <Project Path="HallRentingService.Data/HallRentingService.Data.csproj" />
+  <Project Path="HallRentingService.ServiceDefaults/HallRentingService.ServiceDefaults.csproj" />
+  <Project Path="HallRentingService.WebAPI/HallRentingService.WebAPI.csproj" />
+</Solution>
