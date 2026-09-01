@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Entities.Halls;
 using HallRentingService.Data.Shared.JoinEntities;
-using HallRentingService.Data.Features.HallServices;
+using HallRentingService.Data.Entities.HallServices;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HallRentingService.Data.Features.Halls_HallServices;
+namespace HallRentingService.Data.Entities.Halls_HallServices;
 
 public sealed class Hall_HallService_JoinEntityConfiguration : IEntityTypeConfiguration<Hall_HallService_JoinEntity>
 {

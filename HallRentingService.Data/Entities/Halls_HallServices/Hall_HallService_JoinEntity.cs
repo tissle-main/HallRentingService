@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Entities.Halls;
 using HallRentingService.Data.Shared.JoinEntities;
-using HallRentingService.Data.Features.HallServices;
+using HallRentingService.Data.Entities.HallServices;
 
-namespace HallRentingService.Data.Features.Halls_HallServices;
+namespace HallRentingService.Data.Entities.Halls_HallServices;
 
 public sealed class Hall_HallService_JoinEntity : IJoinEntity<Hall_HallService_JoinEntity, HallEntity, HallServiceEntity>
 {
@@ -11,7 +11,7 @@ public sealed class Hall_HallService_JoinEntity : IJoinEntity<Hall_HallService_J
     //Value properties
     public Guid LeftId { get; set; } //Interfaces
     public Guid RightId { get; set; } //Interfaces
-    public uint Price { get; set; }
+    public int Price { get; set; }
 
     //Navigation properties
     public HallEntity? Left { get; set; } //Interfaces

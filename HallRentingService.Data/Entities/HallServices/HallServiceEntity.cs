@@ -1,13 +1,13 @@
 ﻿using HallRentingService.Data.Shared.KeyedEntities;
-using HallRentingService.Data.Features.Halls_HallServices;
+using HallRentingService.Data.Entities.Halls_HallServices;
 
-namespace HallRentingService.Data.Features.HallServices;
+namespace HallRentingService.Data.Entities.HallServices;
 
 public sealed class HallServiceEntity : IKeyedEntity
 {
     //Value properties
     public Guid Id { get; set; } //Interfaces
-    public HallServiceType ServiceType { get; set; }
+    public required string Name { get; set; }
 
     //Navigation properties
     public List<Hall_HallService_JoinEntity> Halls { get; set; } = [];

@@ -1,4 +1,4 @@
-using PhoenixKC.WebAPI;
+using HallRentingService.WebAPI;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();

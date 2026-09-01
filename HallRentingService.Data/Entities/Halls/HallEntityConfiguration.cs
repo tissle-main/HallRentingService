@@ -2,7 +2,7 @@
 using HallRentingService.Data.Shared.KeyedEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HallRentingService.Data.Features.Halls;
+namespace HallRentingService.Data.Entities.Halls;
 
 public sealed class HallEntityConfiguration : IEntityTypeConfiguration<HallEntity>
 {

@@ -2,7 +2,7 @@
 using HallRentingService.Data.Shared.KeyedEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HallRentingService.Data.Features.HallServices;
+namespace HallRentingService.Data.Entities.HallServices;
 
 public sealed class HallServiceEntityConfiguration : IEntityTypeConfiguration<HallServiceEntity>
 {
@@ -10,7 +10,7 @@ public sealed class HallServiceEntityConfiguration : IEntityTypeConfiguration<Ha
     public void Configure(EntityTypeBuilder<HallServiceEntity> builder)
     {
         builder.ConfigureKeyedEntity();
-        builder.Property(e => e.ServiceType).IsRequired();
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(HallServiceEntityConstants.NameMaxLength);
     }
     #endregion
 }

@@ -1,4 +1,4 @@
-﻿namespace HallRentingService.Data.Features.Halls;
+﻿namespace HallRentingService.Data.Entities.Halls;
 
 public sealed class HallEntityConstants
 {

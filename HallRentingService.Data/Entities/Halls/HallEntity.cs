@@ -1,16 +1,16 @@
-﻿using HallRentingService.Data.Features.Booking;
+﻿using HallRentingService.Data.Entities.Booking;
 using HallRentingService.Data.Shared.KeyedEntities;
-using HallRentingService.Data.Features.Halls_HallServices;
+using HallRentingService.Data.Entities.Halls_HallServices;
 
-namespace HallRentingService.Data.Features.Halls;
+namespace HallRentingService.Data.Entities.Halls;
 
 public sealed class HallEntity : IKeyedEntity
 {
     //Value properties
     public Guid Id { get; set; } //Interfaces
     public required string Name { get; set; }
-    public uint Capacity { get; set; }
-    public uint BasePrice { get; set; }
+    public int Capacity { get; set; }
+    public int BasePrice { get; set; }
 
     //Navigation properties
     public List<Hall_HallService_JoinEntity> HallServices { get; set; } = [];

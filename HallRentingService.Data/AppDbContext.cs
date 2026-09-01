@@ -1,11 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PhoenixKC.Data.Shared.KeyedEntities;
+using HallRentingService.Data.Entities.Halls;
+using HallRentingService.Data.Entities.Booking;
+using HallRentingService.Data.Shared.KeyedEntities;
+using HallRentingService.Data.Entities.HallServices;
+using HallRentingService.Data.Entities.Halls_HallServices;
 
 namespace HallRentingService.Data;
 
 public sealed class AppDbContext : DbContext
 {
     #region Instance
+    public DbSet<HallEntity> Halls { get; set; } = null!; //Init by EF Core
+    public DbSet<HallServiceEntity> HallServices { get; set; } = null!; //Init by EF Core
+    public DbSet<Hall_HallService_JoinEntity> Hall_HallServices { get; set; } = null!; //Init by EF Core
+    public DbSet<BookingEntity> Bookings { get; set; } = null!; //Init by EF Core
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

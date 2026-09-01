@@ -1,7 +1,7 @@
-﻿using HallRentingService.Data.Features.Halls;
+﻿using HallRentingService.Data.Entities.Halls;
 using HallRentingService.Data.Shared.KeyedEntities;
 
-namespace HallRentingService.Data.Features.Booking;
+namespace HallRentingService.Data.Entities.Booking;
 
 public sealed class BookingEntity : IKeyedEntity
 {
@@ -9,7 +9,7 @@ public sealed class BookingEntity : IKeyedEntity
     public Guid Id { get; set; } //Interfaces
     public DateTime BookingDateTime { get; set; }
     public TimeSpan BookingDuration { get; set; }
-    public uint TotalPrice { get; set; }
+    public int TotalPrice { get; set; }
     public Guid HallId { get; set; }
 
     //Navigation properties
