@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Arshid.Aspire.ApiDocs.Extensions" Version="13.4.6.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HallRentingService.WebAPI\HallRentingService.WebAPI.csproj" />
   </ItemGroup>
 
