@@ -2,7 +2,6 @@
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using HallRentingService.WebAPI.Shared.Extensions;
-using HallRentingService.WebAPI.Shared.JoinEntities;
 using HallRentingService.WebAPI.Features.Halls.Dtos;
 
 namespace HallRentingService.WebAPI.Features.Halls.Handlers.UpdateHall;
@@ -25,7 +24,6 @@ public static class UpdateHallEndpoint
     {
         public RouteHandlerBuilder AddUpdateHallProductionProblems()
         {
-            thisBuilder.AddUpdateJoinEntitiesProductionProblems();
             return thisBuilder.ProducesValidationProblem(StatusCodes.Status422UnprocessableEntity);
         }
     }

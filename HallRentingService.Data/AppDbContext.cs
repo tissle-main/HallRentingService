@@ -7,18 +7,13 @@ using HallRentingService.Data.Entities.Halls_HallServices;
 
 namespace HallRentingService.Data;
 
-public sealed class AppDbContext : DbContext
+public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     #region Instance
     public DbSet<HallEntity> Halls { get; set; } = null!; //Init by EF Core
     public DbSet<HallServiceEntity> HallServices { get; set; } = null!; //Init by EF Core
     public DbSet<Hall_HallService_JoinEntity> Hall_HallServices { get; set; } = null!; //Init by EF Core
     public DbSet<BookingEntity> Bookings { get; set; } = null!; //Init by EF Core
-
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-        base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-    }
     #endregion
 
     #region Base
@@ -30,16 +25,12 @@ public sealed class AppDbContext : DbContext
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
         this.GenerateIdForKeyedEntities();
-        int changedNumber = base.SaveChanges(acceptAllChangesOnSuccess);
-        base.ChangeTracker.Clear();
-        return changedNumber;
+        return base.SaveChanges(acceptAllChangesOnSuccess);
     }
     public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         this.GenerateIdForKeyedEntities();
-        int changedNumber = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        base.ChangeTracker.Clear();
-        return changedNumber;
+        return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
     #endregion
 }

@@ -12,7 +12,7 @@ public sealed class HallEntityConfiguration : IEntityTypeConfiguration<HallEntit
         builder.ConfigureKeyedEntity();
         builder.Property(e => e.Name).IsRequired().HasMaxLength(HallEntityConstants.NameMaxLength);
         builder.Property(e => e.Capacity).IsRequired();
-        builder.Property(e => e.BasePrice).IsRequired();
+        builder.Property(e => e.PricePerHour).IsRequired();
     }
     #endregion
 }

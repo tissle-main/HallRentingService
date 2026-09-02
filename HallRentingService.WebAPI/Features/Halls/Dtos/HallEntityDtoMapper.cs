@@ -16,7 +16,7 @@ public static partial class HallEntityDtoMapper
         return dto.HallServices.Select(jd =>
         {
             Hall_HallService_JoinEntity je = jd.ToEntity();
-            je.LeftId = dto.Id;
+            je.HallId = dto.Id;
             return je;
         }).ToList();
     }

@@ -11,6 +11,7 @@ public sealed class HallServiceEntityConfiguration : IEntityTypeConfiguration<Ha
     {
         builder.ConfigureKeyedEntity();
         builder.Property(e => e.Name).IsRequired().HasMaxLength(HallServiceEntityConstants.NameMaxLength);
+        builder.HasIndex(e => e.Name).IsUnique();
     }
     #endregion
 }

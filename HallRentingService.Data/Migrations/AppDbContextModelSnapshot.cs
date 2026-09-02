@@ -28,17 +28,17 @@ namespace HallRentingService.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("BookingDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<TimeSpan>("BookingDuration")
                         .HasColumnType("time");
+
+                    b.Property<DateTime>("BookingStart")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("HallId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<float>("TotalPrice")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -60,6 +60,9 @@ namespace HallRentingService.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("HallServices");
                 });
 
@@ -69,9 +72,6 @@ namespace HallRentingService.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BasePrice")
-                        .HasColumnType("int");
-
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
@@ -80,6 +80,9 @@ namespace HallRentingService.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<float>("PricePerHour")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Halls");
@@ -87,18 +90,18 @@ namespace HallRentingService.Data.Migrations
 
             modelBuilder.Entity("HallRentingService.Data.Entities.Halls_HallServices.Hall_HallService_JoinEntity", b =>
                 {
-                    b.Property<Guid>("LeftId")
+                    b.Property<Guid>("HallId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("RightId")
+                    b.Property<Guid>("HallServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
-                    b.HasKey("LeftId", "RightId");
+                    b.HasKey("HallId", "HallServiceId");
 
-                    b.HasIndex("RightId");
+                    b.HasIndex("HallServiceId");
 
                     b.ToTable("Hall_HallServices");
                 });
@@ -116,21 +119,21 @@ namespace HallRentingService.Data.Migrations
 
             modelBuilder.Entity("HallRentingService.Data.Entities.Halls_HallServices.Hall_HallService_JoinEntity", b =>
                 {
-                    b.HasOne("HallRentingService.Data.Entities.Halls.HallEntity", "Left")
+                    b.HasOne("HallRentingService.Data.Entities.Halls.HallEntity", "Hall")
                         .WithMany("HallServices")
-                        .HasForeignKey("LeftId")
+                        .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HallRentingService.Data.Entities.HallServices.HallServiceEntity", "Right")
+                    b.HasOne("HallRentingService.Data.Entities.HallServices.HallServiceEntity", "HallService")
                         .WithMany("Halls")
-                        .HasForeignKey("RightId")
+                        .HasForeignKey("HallServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Left");
+                    b.Navigation("Hall");
 
-                    b.Navigation("Right");
+                    b.Navigation("HallService");
                 });
 
             modelBuilder.Entity("HallRentingService.Data.Entities.HallServices.HallServiceEntity", b =>

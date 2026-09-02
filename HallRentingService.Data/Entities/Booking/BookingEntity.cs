@@ -7,9 +7,9 @@ public sealed class BookingEntity : IKeyedEntity
 {
     //Value properties
     public Guid Id { get; set; } //Interfaces
-    public DateTime BookingDateTime { get; set; }
+    public DateTime BookingStart { get; set; }
     public TimeSpan BookingDuration { get; set; }
-    public int TotalPrice { get; set; }
+    public float TotalPrice { get; set; }
     public Guid HallId { get; set; }
 
     //Navigation properties

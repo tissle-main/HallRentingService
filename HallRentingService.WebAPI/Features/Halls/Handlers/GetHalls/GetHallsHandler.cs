@@ -13,10 +13,10 @@ public sealed class GetHallsHandler(AppDbContext thisDbContext) : IQueryHandler<
     {
         if(query.Ids.Length == 0)
         {
-            return await thisDbContext.Halls.Include(e => e.HallServices).Include(e => e.Bookings).ProjectToDto().ToArrayAsync(cancellationToken);
+            return await thisDbContext.Halls.AsNoTracking().Include(e => e.HallServices).Include(e => e.Bookings).ProjectToDto().ToArrayAsync(cancellationToken);
         }
         Guid[] ids = query.Ids.Distinct().ToArray();
-        HallDto[] dtos = await thisDbContext.Halls.Include(e => e.HallServices).Include(e => e.Bookings).Where(
+        HallDto[] dtos = await thisDbContext.Halls.AsNoTracking().Include(e => e.HallServices).Include(e => e.Bookings).Where(
             e => ids.Contains(e.Id)    
         ).ProjectToDto().ToArrayAsync(cancellationToken);
         if(ids.Length > dtos.Length)

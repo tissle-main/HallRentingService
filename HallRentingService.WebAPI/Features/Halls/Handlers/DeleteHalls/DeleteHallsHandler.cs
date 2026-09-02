@@ -20,12 +20,12 @@ public sealed class DeleteHallsHandler(AppDbContext thisDbContext) : ICommandHan
             return Unit.Value;
         }
         Guid[] ids = command.Ids.Distinct().ToArray();
-        HallEntity[] halls = await thisDbContext.Halls.Where(e => ids.Contains(e.Id)).ToArrayAsync(cancellationToken);
+        HallEntity[] halls = await thisDbContext.Halls.AsNoTracking().Where(e => ids.Contains(e.Id)).ToArrayAsync(cancellationToken);
         if(ids.Length > halls.Length)
         {
             return Error.NotFound();
         }
-        BookingEntity[] bookings = await thisDbContext.Bookings.Where(e => ids.Contains(e.HallId)).ToArrayAsync(cancellationToken);
+        BookingEntity[] bookings = await thisDbContext.Bookings.AsNoTracking().Where(e => ids.Contains(e.HallId)).ToArrayAsync(cancellationToken);
         thisDbContext.Bookings.RemoveRange(bookings);
         thisDbContext.Halls.RemoveRange(halls);
         await thisDbContext.SaveChangesAsync(cancellationToken);

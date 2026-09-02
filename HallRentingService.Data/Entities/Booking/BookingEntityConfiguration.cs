@@ -10,7 +10,7 @@ public sealed class BookingEntityConfiguration : IEntityTypeConfiguration<Bookin
     public void Configure(EntityTypeBuilder<BookingEntity> builder)
     {
         builder.ConfigureKeyedEntity();
-        builder.Property(e => e.BookingDateTime).IsRequired();
+        builder.Property(e => e.BookingStart).IsRequired();
         builder.Property(e => e.BookingDuration).IsRequired();
         builder.Property(e => e.TotalPrice).IsRequired();
         builder.HasOne(b => b.Hall).WithMany(h => h.Bookings).HasForeignKey(b => b.HallId).IsRequired().OnDelete(DeleteBehavior.Restrict);
