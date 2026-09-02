@@ -2,5 +2,6 @@
   <Project Path="HallRentingService.AppHost/HallRentingService.AppHost.csproj" />
   <Project Path="HallRentingService.Data/HallRentingService.Data.csproj" />
   <Project Path="HallRentingService.ServiceDefaults/HallRentingService.ServiceDefaults.csproj" />
+  <Project Path="HallRentingService.UnitTests/HallRentingService.UnitTests.csproj" Id="2e0e7dbd-e5d5-44a9-8fe0-bf969b0ed37b" />
   <Project Path="HallRentingService.WebAPI/HallRentingService.WebAPI.csproj" />
 </Solution>

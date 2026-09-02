@@ -10,14 +10,15 @@ public static partial class HallService_JoinEntityDtoMapper
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.Hall))]
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.HallId))]
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.HallService))]
-    public static partial HallService_JoinDto ToDto(this Hall_HallService_JoinEntity entity);
-    public static partial IEnumerable<HallService_JoinDto> ToDtos(this IEnumerable<Hall_HallService_JoinEntity> entities);
+    public static partial HallService_JoinDto ToHallServiceDto(this Hall_HallService_JoinEntity entity);
+    public static partial IEnumerable<HallService_JoinDto> ToHallServiceDtos(this IEnumerable<Hall_HallService_JoinEntity> entities);
+    public static partial IQueryable<HallService_JoinDto> ProjectToHallServiceDto(this IQueryable<Hall_HallService_JoinEntity> query);
 
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.Hall))]
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.HallId))]
     [MapperIgnoreSource(nameof(Hall_HallService_JoinEntity.HallService))]
-    public static partial void MapToDto(this Hall_HallService_JoinEntity source, HallService_JoinDto destination);
-    public static partial void MapToDto(this HallService_JoinDto source, HallService_JoinDto destination);
+    public static partial void MapToHallServiceDto(this Hall_HallService_JoinEntity source, HallService_JoinDto destination);
+    public static partial void MapToHallServiceDto(this HallService_JoinDto source, HallService_JoinDto destination);
 
     [MapperIgnoreTarget(nameof(Hall_HallService_JoinEntity.Hall))]
     [MapperIgnoreTarget(nameof(Hall_HallService_JoinEntity.HallId))]
@@ -30,5 +31,4 @@ public static partial class HallService_JoinEntityDtoMapper
     [MapperIgnoreTarget(nameof(Hall_HallService_JoinEntity.HallService))]
     public static partial void MapToEntity(this HallService_JoinDto source, Hall_HallService_JoinEntity destination);
     public static partial void MapToEntity(this Hall_HallService_JoinEntity source, Hall_HallService_JoinEntity destination);
-    public static partial IQueryable<HallService_JoinDto> ProjectToDto(this IQueryable<Hall_HallService_JoinEntity> query);
 }

@@ -8,7 +8,7 @@ public sealed class HallDtoValidator : AbstractValidator<HallDto>
 {
     public HallDtoValidator()
     {
-        base.RuleFor(dto => dto.Name).MaximumLength(HallEntityConstants.NameMaxLength);
+        base.RuleFor(dto => dto.Name).NotEmpty().MaximumLength(HallEntityConstants.NameMaxLength);
         base.RuleFor(dto => dto.Capacity).GreaterThan(0);
         base.RuleFor(dto => dto.PricePerHour).GreaterThanOrEqualTo(0);
         base.RuleForEach(dto => dto.HallServices).SetValidator(new HallService_JoinDtoValidator());
