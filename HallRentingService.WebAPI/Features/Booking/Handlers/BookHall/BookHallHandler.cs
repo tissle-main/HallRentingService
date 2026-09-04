@@ -2,10 +2,10 @@ using ErrorOr;
 using Mediator;
 using HallRentingService.Data;
 using Microsoft.EntityFrameworkCore;
-using HallRentingService.Data.Entities.Halls;
-using HallRentingService.Data.Entities.Booking;
+using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Features.Booking;
 using HallRentingService.WebAPI.Features.Booking.Services;
-using HallRentingService.Data.Entities.Halls_HallServices;
+using HallRentingService.Data.Features.Halls_HallServices;
 
 namespace HallRentingService.WebAPI.Features.Booking.Handlers.BookHall;
 

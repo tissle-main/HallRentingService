@@ -1,5 +1,5 @@
 using Bogus;
-using HallRentingService.Data.Entities.HallServices;
+using HallRentingService.Data.Features.HallServices;
 
 namespace HallRentingService.WebAPI.Features.HallServices.Dtos;
 
@@ -13,6 +13,18 @@ public static class HallServiceEntityFaker
             {
                 Name = g.Random.String2(HallServiceEntityConstants.NameMaxLength)
             });
+        }
+        public Faker<HallServiceEntity> WithId(Guid id)
+        {
+            return thisFaker.RuleFor(e => e.Id, id);
+        }
+        public Faker<HallServiceEntity> WithName(string name)
+        {
+            return thisFaker.RuleFor(e => e.Name, name);
+        }
+        public Faker<HallServiceEntity> WithEmptyName()
+        {
+            return thisFaker.RuleFor(e => e.Name, string.Empty);
         }
         public Faker<HallServiceEntity> WithTooLargeName()
         {

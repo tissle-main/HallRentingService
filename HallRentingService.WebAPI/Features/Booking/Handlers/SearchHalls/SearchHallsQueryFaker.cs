@@ -16,6 +16,18 @@ public static class SearchHallsQueryFaker
                 return new SearchHallsQuery(bookingStart, bookingDuration, capacity);
             });
         }
+        public Faker<SearchHallsQuery> WithBookingStart(DateTime bookingStart)
+        {
+            return thisFaker.RuleFor(e => e.BookingStart, bookingStart);
+        }
+        public Faker<SearchHallsQuery> WithBookingDuration(TimeSpan bookingDuration)
+        {
+            return thisFaker.RuleFor(e => e.BookingDuration, bookingDuration);
+        }
+        public Faker<SearchHallsQuery> WithCapacity(int capacity)
+        {
+            return thisFaker.RuleFor(e => e.Capacity, capacity);
+        }
         public Faker<SearchHallsQuery> WithExpiredBookingStart()
         {
             return thisFaker.RuleFor(e => e.BookingStart, DateTime.UtcNow.AddDays(-1));

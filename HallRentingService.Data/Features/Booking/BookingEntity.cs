@@ -1,7 +1,7 @@
-﻿using HallRentingService.Data.Entities.Halls;
+﻿using HallRentingService.Data.Features.Halls;
 using HallRentingService.Data.Shared.KeyedEntities;
 
-namespace HallRentingService.Data.Entities.Booking;
+namespace HallRentingService.Data.Features.Booking;
 
 public sealed class BookingEntity : IKeyedEntity
 {

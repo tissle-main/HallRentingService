@@ -1,6 +1,6 @@
 using Bogus;
 using FluentValidation.TestHelper;
-using HallRentingService.Data.Entities.HallServices;
+using HallRentingService.Data.Features.HallServices;
 using HallRentingService.WebAPI.Features.HallService.Dtos;
 using HallRentingService.WebAPI.Features.HallServices.Dtos;
 
@@ -21,6 +21,19 @@ public sealed class HallServiceDtoValidatorTests
 
         //Assert
         result.ShouldNotHaveAnyValidationErrors();
+    }
+
+    [Test]
+    public void Validator_ShouldNotPass_WhenInstanceHasEmptyName()
+    {
+        //Arrange
+        HallServiceDto dto = new Faker<HallServiceEntity>().Valid().WithEmptyName().Generate().ToDto();
+
+        //Act
+        TestValidationResult<HallServiceDto> result = Validator.TestValidate(dto);
+
+        //Assert
+        result.ShouldHaveValidationErrorFor(dto => dto.Name);
     }
 
     [Test]

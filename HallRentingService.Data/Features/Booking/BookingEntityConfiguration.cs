@@ -2,7 +2,7 @@
 using HallRentingService.Data.Shared.KeyedEntities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HallRentingService.Data.Entities.Booking;
+namespace HallRentingService.Data.Features.Booking;
 
 public sealed class BookingEntityConfiguration : IEntityTypeConfiguration<BookingEntity>
 {

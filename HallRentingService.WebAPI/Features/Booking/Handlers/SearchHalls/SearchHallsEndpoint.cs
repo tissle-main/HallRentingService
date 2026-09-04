@@ -11,19 +11,18 @@ public static class SearchHallsEndpoint
 {
     public const string Url = "/api/halls/search";
 
-    public static string CreateSendableUrl(DateTime bookingDateTime, TimeSpan bookingDuration, int capacity)
+    public static string CreateSendableUrl(SearchHallsQuery query)
     {
         IEnumerable<KeyValuePair<string, string?>> queryParams =
         [
-            new(nameof(bookingDateTime), bookingDateTime.ToString("O")),
-            new(nameof(bookingDuration), bookingDuration.ToString()),
-            new(nameof(capacity), capacity.ToString())
+            new(nameof(query.BookingStart), query.BookingStart.ToString("O")),
+            new(nameof(query.BookingDuration), query.BookingDuration.ToString()),
+            new(nameof(query.Capacity), query.Capacity.ToString())
         ];
         return QueryHelpers.AddQueryString(Url, queryParams);
     }
-
     public static async Task<IResult> SearchHalls(
-        [FromQuery] DateTime bookingDateTime,
+        [FromQuery] DateTime bookingStart,
         [FromQuery] TimeSpan bookingDuration,
         [FromQuery] int capacity,
         [FromServices] IMediator mediator,
@@ -31,7 +30,7 @@ public static class SearchHallsEndpoint
     )
     {
         ErrorOr<IEnumerable<HallDto>> response = await mediator.Send(
-            new SearchHallsQuery(bookingDateTime, bookingDuration, capacity),
+            new SearchHallsQuery(bookingStart, bookingDuration, capacity),
             cancellationToken
         );
         return response.ToHttpResult();
@@ -56,14 +55,9 @@ public static class SearchHallsEndpoint
     }
     extension(HttpClient thisHttpClient)
     {
-        public async ValueTask<HttpResponseMessage> SendSearchHallsAsync(
-            DateTime bookingDateTime,
-            TimeSpan bookingDuration,
-            int capacity,
-            CancellationToken cancellationToken
-        )
+        public async ValueTask<HttpResponseMessage> SendSearchHallsAsync(SearchHallsQuery query, CancellationToken cancellationToken)
         {
-            using HttpRequestMessage request = new(HttpMethod.Get,CreateSendableUrl(bookingDateTime, bookingDuration, capacity));
+            using HttpRequestMessage request = new(HttpMethod.Get, CreateSendableUrl(query));
             return await thisHttpClient.SendAsync(request, cancellationToken);
         }
     }

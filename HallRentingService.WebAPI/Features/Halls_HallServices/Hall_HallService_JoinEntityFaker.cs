@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using HallRentingService.Data.Entities.Halls_HallServices;
+using HallRentingService.Data.Features.Halls_HallServices;
 
 namespace HallRentingService.WebAPI.Features.Halls_HallServices;
 
@@ -13,6 +13,14 @@ public static class Hall_HallService_JoinEntityFaker
             {
                 Price = g.Random.Float(100, 1000)
             });
+        }
+        public Faker<Hall_HallService_JoinEntity> WithHallId(Guid hallId)
+        {
+            return thisFaker.RuleFor(je => je.HallId, hallId);
+        }
+        public Faker<Hall_HallService_JoinEntity> WithHallServiceId(Guid hallServiceId)
+        {
+            return thisFaker.RuleFor(je => je.HallServiceId, hallServiceId);
         }
         public Faker<Hall_HallService_JoinEntity> WithNegativePrice()
         {

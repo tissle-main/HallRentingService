@@ -1,7 +1,7 @@
 using ErrorOr;
 using Mediator;
-using Microsoft.EntityFrameworkCore;
 using HallRentingService.Data;
+using Microsoft.EntityFrameworkCore;
 using HallRentingService.WebAPI.Features.Booking.Dtos;
 
 namespace HallRentingService.WebAPI.Features.Booking.Handlers.GetBookings;

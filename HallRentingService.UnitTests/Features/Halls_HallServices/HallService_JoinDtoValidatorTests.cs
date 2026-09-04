@@ -1,8 +1,8 @@
 ﻿using Bogus;
 using FluentValidation.TestHelper;
-using HallRentingService.Data.Entities.Halls_HallServices;
 using HallRentingService.WebAPI.Features.Halls_HallServices;
 using HallRentingService.WebAPI.Features.Hall_HallServices.Dtos;
+using HallRentingService.Data.Features.Halls_HallServices;
 
 namespace HallRentingService.UnitTests.Features.Halls_HallServices;
 

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using HallRentingService.Data.Entities.Halls;
-using HallRentingService.Data.Entities.Booking;
 using HallRentingService.Data.Shared.KeyedEntities;
-using HallRentingService.Data.Entities.HallServices;
-using HallRentingService.Data.Entities.Halls_HallServices;
+using HallRentingService.Data.Features.Booking;
+using HallRentingService.Data.Features.Halls_HallServices;
+using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Features.HallServices;
 
 namespace HallRentingService.Data;
 

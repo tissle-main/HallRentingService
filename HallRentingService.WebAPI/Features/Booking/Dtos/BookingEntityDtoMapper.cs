@@ -1,5 +1,5 @@
 ﻿using Riok.Mapperly.Abstractions;
-using HallRentingService.Data.Entities.Booking;
+using HallRentingService.Data.Features.Booking;
 
 namespace HallRentingService.WebAPI.Features.Booking.Dtos;
 

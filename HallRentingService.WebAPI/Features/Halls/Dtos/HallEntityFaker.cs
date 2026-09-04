@@ -1,6 +1,6 @@
 ﻿using Bogus;
-using HallRentingService.Data.Entities.Halls;
-using HallRentingService.Data.Entities.Halls_HallServices;
+using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Features.Halls_HallServices;
 
 namespace HallRentingService.WebAPI.Features.Halls.Dtos;
 

@@ -17,7 +17,7 @@ public sealed class GetHallsHandler(AppDbContext thisDbContext) : IQueryHandler<
         }
         Guid[] ids = query.Ids.Distinct().ToArray();
         HallDto[] dtos = await thisDbContext.Halls.AsNoTracking().Include(e => e.HallServices).Include(e => e.Bookings).Where(
-            e => ids.Contains(e.Id)    
+            e => ids.Contains(e.Id)
         ).ProjectToDto().ToArrayAsync(cancellationToken);
         if(ids.Length > dtos.Length)
         {

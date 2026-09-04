@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using HallRentingService.Data.Entities.Halls;
+using HallRentingService.Data.Features.Halls;
 using HallRentingService.WebAPI.Features.Halls_HallServices;
 
 namespace HallRentingService.WebAPI.Features.Halls.Dtos;

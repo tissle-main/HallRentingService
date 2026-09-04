@@ -16,6 +16,22 @@ public static class BookHallCommandFaker
                 return new BookHallCommand(id, bookingStart, bookingDuration, []);
             });
         }
+        public Faker<BookHallCommand> WithHallId(Guid hallId)
+        {
+            return thisFaker.RuleFor(e => e.HallId, hallId);
+        }
+        public Faker<BookHallCommand> WithBookingStart(DateTime bookingStart)
+        {
+            return thisFaker.RuleFor(e => e.BookingStart, bookingStart);
+        }
+        public Faker<BookHallCommand> WithBookingDuration(TimeSpan bookingDuration)
+        {
+            return thisFaker.RuleFor(e => e.BookingDuration, bookingDuration);
+        }
+        public Faker<BookHallCommand> WithHallServices(List<Guid> hallServices)
+        {
+            return thisFaker.RuleFor(e => e.HallServices, hallServices);
+        }
         public Faker<BookHallCommand> WithExpiredBookingStart()
         {
             return thisFaker.RuleFor(e => e.BookingStart, DateTime.UtcNow.AddDays(-1));

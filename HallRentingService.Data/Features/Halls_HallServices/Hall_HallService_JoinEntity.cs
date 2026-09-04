@@ -1,7 +1,7 @@
-﻿using HallRentingService.Data.Entities.Halls;
-using HallRentingService.Data.Entities.HallServices;
+﻿using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Features.HallServices;
 
-namespace HallRentingService.Data.Entities.Halls_HallServices;
+namespace HallRentingService.Data.Features.Halls_HallServices;
 
 public sealed class Hall_HallService_JoinEntity
 {

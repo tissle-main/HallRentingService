@@ -2,7 +2,7 @@ using ErrorOr;
 using Mediator;
 using HallRentingService.Data;
 using Microsoft.EntityFrameworkCore;
-using HallRentingService.Data.Entities.HallServices;
+using HallRentingService.Data.Features.HallServices;
 
 namespace HallRentingService.WebAPI.Features.HallServices.Handlers.DeleteHallServices;
 

@@ -1,8 +1,8 @@
 ﻿using ErrorOr;
 using Mediator;
 using HallRentingService.Data;
-using HallRentingService.Data.Entities.HallServices;
 using HallRentingService.WebAPI.Features.HallService.Dtos;
+using HallRentingService.Data.Features.HallServices;
 
 namespace HallRentingService.WebAPI.Features.HallServices.Handlers.CreateHallService;
 

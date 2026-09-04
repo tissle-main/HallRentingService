@@ -1,8 +1,8 @@
 ﻿using Riok.Mapperly.Abstractions;
-using HallRentingService.Data.Entities.Halls;
-using HallRentingService.Data.Entities.Booking;
-using HallRentingService.Data.Entities.Halls_HallServices;
 using HallRentingService.WebAPI.Features.Hall_HallServices.Dtos;
+using HallRentingService.Data.Features.Booking;
+using HallRentingService.Data.Features.Halls_HallServices;
+using HallRentingService.Data.Features.Halls;
 
 namespace HallRentingService.WebAPI.Features.Halls.Dtos;
 

@@ -1,7 +1,7 @@
 ﻿using HallRentingService.Data.Shared.KeyedEntities;
-using HallRentingService.Data.Entities.Halls_HallServices;
+using HallRentingService.Data.Features.Halls_HallServices;
 
-namespace HallRentingService.Data.Entities.HallServices;
+namespace HallRentingService.Data.Features.HallServices;
 
 public sealed class HallServiceEntity : IKeyedEntity
 {

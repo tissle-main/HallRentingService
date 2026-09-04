@@ -2,7 +2,7 @@
 using Mediator;
 using HallRentingService.Data;
 using Microsoft.EntityFrameworkCore;
-using HallRentingService.Data.Entities.Halls;
+using HallRentingService.Data.Features.Halls;
 using HallRentingService.WebAPI.Features.Halls.Dtos;
 
 namespace HallRentingService.WebAPI.Features.Halls.Handlers.UpdateHall;
