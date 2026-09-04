@@ -21,7 +21,8 @@ public sealed class GetHallsHandler(AppDbContext thisDbContext) : IQueryHandler<
         ).ProjectToDto().ToArrayAsync(cancellationToken);
         if(ids.Length > dtos.Length)
         {
-            return Error.NotFound();
+            Guid[] missingIds = ids.Except(dtos.Select(dto => dto.Id)).ToArray();
+            return HallErrors.IdsNotFound(missingIds);
         }
         return dtos;
     }

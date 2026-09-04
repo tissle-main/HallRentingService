@@ -19,7 +19,8 @@ public sealed class GetBookingsHandler(AppDbContext thisDbContext) : IQueryHandl
         BookingDto[] bookings = await thisDbContext.Bookings.AsNoTracking().Where(b => ids.Contains(b.Id)).ProjectToDto().ToArrayAsync(cancellationToken);
         if(ids.Length > bookings.Length)
         {
-            return Error.NotFound();
+            Guid[] missingIds = ids.Except(bookings.Select(dto => dto.Id)).ToArray();
+            return BookingErrors.IdsNotFound(missingIds);
         }
         return bookings;
     }

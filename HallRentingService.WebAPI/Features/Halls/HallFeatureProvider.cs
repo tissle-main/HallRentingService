@@ -5,7 +5,7 @@ using HallRentingService.WebAPI.Features.Halls.Handlers.DeleteHalls;
 
 namespace HallRentingService.WebAPI.Features.Halls;
 
-public sealed class HallsFeatureProvider : FeatureProvider
+public sealed class HallFeatureProvider : FeatureProvider
 {
     #region Base
     public override void UseMiddleware(WebApplication app)

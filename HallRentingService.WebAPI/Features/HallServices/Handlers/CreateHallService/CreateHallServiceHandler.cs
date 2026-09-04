@@ -1,8 +1,8 @@
 ﻿using ErrorOr;
 using Mediator;
 using HallRentingService.Data;
-using HallRentingService.WebAPI.Features.HallService.Dtos;
 using HallRentingService.Data.Features.HallServices;
+using HallRentingService.WebAPI.Features.HallService.Dtos;
 
 namespace HallRentingService.WebAPI.Features.HallServices.Handlers.CreateHallService;
 
@@ -13,7 +13,7 @@ public sealed class CreateHallServiceHandler(AppDbContext thisDbContext) : IComm
     {
         if(thisDbContext.HallServices.Select(e => e.Name).Contains(command.HallService.Name))
         {
-            return Error.Conflict();
+            return HallServiceErrors.NameAlreadyExists(command.HallService.Name);
         }
         HallServiceEntity entity = command.HallService.ToEntity();
         await thisDbContext.HallServices.AddAsync(entity, cancellationToken);

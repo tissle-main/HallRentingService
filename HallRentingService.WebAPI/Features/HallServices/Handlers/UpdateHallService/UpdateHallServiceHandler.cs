@@ -2,8 +2,8 @@ using ErrorOr;
 using Mediator;
 using HallRentingService.Data;
 using Microsoft.EntityFrameworkCore;
-using HallRentingService.WebAPI.Features.HallService.Dtos;
 using HallRentingService.Data.Features.HallServices;
+using HallRentingService.WebAPI.Features.HallService.Dtos;
 
 namespace HallRentingService.WebAPI.Features.HallServices.Handlers.UpdateHallService;
 
@@ -18,11 +18,11 @@ public sealed class UpdateHallServiceHandler(AppDbContext thisDbContext) : IComm
         );
         if(entity is null)
         {
-            return Error.NotFound();
+            return HallServiceErrors.IdsNotFound([command.HallService.Id]);
         }
         if(entity.Name != command.HallService.Name && thisDbContext.HallServices.Select(e => e.Name).Contains(command.HallService.Name))
         {
-            return Error.Conflict();
+            return HallServiceErrors.NameAlreadyExists(entity.Name);
         }
         command.HallService.MapToEntity(entity);
         await thisDbContext.SaveChangesAsync(cancellationToken);

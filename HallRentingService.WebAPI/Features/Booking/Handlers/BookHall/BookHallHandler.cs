@@ -4,6 +4,8 @@ using HallRentingService.Data;
 using Microsoft.EntityFrameworkCore;
 using HallRentingService.Data.Features.Halls;
 using HallRentingService.Data.Features.Booking;
+using HallRentingService.WebAPI.Features.Halls;
+using HallRentingService.WebAPI.Features.HallServices;
 using HallRentingService.WebAPI.Features.Booking.Services;
 using HallRentingService.Data.Features.Halls_HallServices;
 
@@ -25,16 +27,17 @@ public sealed class BookHallHandler(
         );
         if(hall is null)
         {
-            return Error.NotFound();
+            return HallErrors.IdsNotFound([command.HallId]);
         }
         if(hall.Bookings.Any(booking => booking.BookingStart < bookingEnd && command.BookingStart < booking.BookingStart.Add(booking.BookingDuration)))
         {
-            return Error.Conflict();
+            return BookingErrors.BookingOverlaps(command.BookingStart, command.BookingDuration);
         }
         Hall_HallService_JoinEntity[] hallServices = hall.HallServices.Where(je => hallServiceIds.Contains(je.HallServiceId)).ToArray();
         if(hallServices.Length != hallServiceIds.Length)
         {
-            return Error.NotFound();
+            Guid[] missingIds = hallServiceIds.Except(hallServices.Select(je => je.HallServiceId)).ToArray();
+            return HallServiceErrors.IdsNotFound(missingIds);
         }
         float totalPrice = bookingPriceModifier.ApplyModifiers(hall.PricePerHour, command.BookingStart, command.BookingDuration);
         totalPrice += hallServices.Sum(hallService => hallService.Price);

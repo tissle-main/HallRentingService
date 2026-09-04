@@ -21,7 +21,8 @@ public sealed class DeleteHallServicesHandler(AppDbContext thisDbContext) : ICom
         HallServiceEntity[] hallServices = await thisDbContext.HallServices.AsNoTracking().Where(e => ids.Contains(e.Id)).ToArrayAsync(cancellationToken);
         if(ids.Length > hallServices.Length)
         {
-            return Error.NotFound();
+            Guid[] missingIds = ids.Except(hallServices.Select(h => h.Id)).ToArray();
+            return HallServiceErrors.IdsNotFound(missingIds);
         }
         thisDbContext.HallServices.RemoveRange(hallServices);
         await thisDbContext.SaveChangesAsync(cancellationToken);

@@ -18,7 +18,7 @@ public sealed class UpdateHallHandler(AppDbContext thisDbContext) : ICommandHand
         );
         if(oldEntity is null)
         {
-            return Error.NotFound();
+            return HallErrors.IdsNotFound([command.Hall.Id]);
         }
         command.Hall.ToEntity().MapToEntity(oldEntity);
         await thisDbContext.SaveChangesAsync(cancellationToken);

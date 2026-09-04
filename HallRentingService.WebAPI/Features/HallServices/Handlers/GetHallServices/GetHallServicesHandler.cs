@@ -17,12 +17,16 @@ public sealed class GetHallServicesHandler(AppDbContext thisDbContext) : IQueryH
             return await thisDbContext.HallServices.AsNoTracking().ProjectToDto().ToArrayAsync(cancellationToken);
         }
         Guid[] ids = query.Ids.Distinct().ToArray();
-        HallServiceDto[] halls = await thisDbContext.HallServices.AsNoTracking().Where(e => ids.Contains(e.Id)).ProjectToDto().ToArrayAsync(cancellationToken);
-        if(ids.Length > halls.Length)
+        HallServiceDto[] hallServices = await thisDbContext.HallServices.AsNoTracking()
+            .Where(e => ids.Contains(e.Id))
+            .ProjectToDto()
+            .ToArrayAsync(cancellationToken);
+        if(ids.Length > hallServices.Length)
         {
-            return Error.NotFound();
+            Guid[] missingIds = ids.Except(hallServices.Select(h => h.Id)).ToArray();
+            return HallServiceErrors.IdsNotFound(missingIds);
         }
-        return halls;
+        return hallServices;
     }
     #endregion
 }
