@@ -24,6 +24,7 @@ public static class CreateHallEndpoint
     {
         public RouteHandlerBuilder AddCreateHallProductionProblems()
         {
+            thisBuilder.ProducesProblem(StatusCodes.Status404NotFound);
             return thisBuilder.ProducesValidationProblem(StatusCodes.Status422UnprocessableEntity);
         }
     }
