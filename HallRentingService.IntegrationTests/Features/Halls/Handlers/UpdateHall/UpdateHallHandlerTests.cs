@@ -62,6 +62,39 @@ public sealed class UpdateHallHandlerTests(AppFixture thisApp)
     }
 
     [Test]
+    public async Task Handler_ShouldFail_WhenHallServicesNotFound()
+    {
+        //Arrange
+        await thisApp.ResetDatabaseAsync(TestContext.Current!.Execution.CancellationToken);
+        HallDto[] halls = await thisApp.ExecuteDbContextAsync(async db =>
+        {
+            await new Faker<HallEntity>().Valid().SeedDatabaseAsync(db, TestContext.Current!.Execution.CancellationToken);
+            await new Faker<HallServiceEntity>().Valid().SeedDatabaseAsync(db, TestContext.Current!.Execution.CancellationToken);
+            await new Faker<Hall_HallService_JoinEntity>().Valid().SeedDatabaseAsync(db, TestContext.Current!.Execution.CancellationToken);
+            return await db.Halls.AsNoTracking().Include(h => h.HallServices).ProjectToDto().ToArrayAsync();
+        });
+        HallDto hallToUpdate = Faker.PickRandom(halls);
+        List<HallServiceEntity> newHallServices = await thisApp.ExecuteDbContextAsync(async db =>
+        {
+            return await new Faker<HallServiceEntity>().Valid().SeedDatabaseAsync(db, TestContext.Current!.Execution.CancellationToken);
+        });
+        List<HallService_JoinDto> newJes = Faker.PickRandom(newHallServices, Faker.Random.Number(1, newHallServices.Count - 1)).Select(hs =>
+        {
+            return new Faker<Hall_HallService_JoinEntity>().Valid().WithHallServiceId(Guid.NewGuid()).Generate().ToHallServiceDto();
+        }).ToList();
+        List<HallService_JoinDto> oldJes = Faker.PickRandom(hallToUpdate.HallServices, Faker.Random.Number(1, hallToUpdate.HallServices.Count - 1)).ToList();
+        HallDto hall = new Faker<HallEntity>().Valid().Generate().ToDto();
+        hall.Id = hallToUpdate.Id;
+        hall.HallServices = [..oldJes, ..newJes];
+
+        //Act
+        using HttpResponseMessage message = await thisApp.HttpClient.SendUpdateHallAsync(hall, TestContext.Current!.Execution.CancellationToken);
+
+        //Assert
+        await Assert.That(message.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
+    }
+
+    [Test]
     public async Task Handler_ShouldFail_WhenIdNotFound()
     {
         //Arrange

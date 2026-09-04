@@ -53,6 +53,29 @@ public sealed class CreateHallHandlerTests(AppFixture thisApp)
     }
 
     [Test]
+    public async Task Handler_ShouldFail_WhenHallServicesNotFound()
+    {
+        //Arrange
+        await thisApp.ResetDatabaseAsync(TestContext.Current!.Execution.CancellationToken);
+        List<HallServiceEntity> hallServices = await thisApp.ExecuteDbContextAsync(async db =>
+        {
+            return await new Faker<HallServiceEntity>().Valid().SeedDatabaseAsync(db, TestContext.Current!.Execution.CancellationToken);
+        });
+        List<HallService_JoinDto> jes = Faker.PickRandom(hallServices, Faker.Random.Number(1, hallServices.Count)).Select(hs =>
+        {
+            return new Faker<Hall_HallService_JoinEntity>().Valid().WithHallServiceId(Guid.NewGuid()).Generate().ToHallServiceDto();
+        }).ToList();
+        HallDto hall = new Faker<HallEntity>().Valid().Generate().ToDto();
+        hall.HallServices = jes;
+
+        //Act
+        using HttpResponseMessage message = await thisApp.HttpClient.SendCreateHallAsync(hall, TestContext.Current!.Execution.CancellationToken);
+
+        //Assert
+        await Assert.That(message.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
+    }
+
+    [Test]
     public async Task Handler_ShouldFail_WhenNameIsEmpty()
     {
         //Arrange
