@@ -4,6 +4,9 @@ using System.Collections.Frozen;
 using Microsoft.EntityFrameworkCore;
 using HallRentingService.WebAPI.Features;
 using HallRentingService.ServiceDefaults;
+using HallRentingService.Data.Features.Halls;
+using HallRentingService.Data.Features.HallServices;
+using HallRentingService.Data.Features.Halls_HallServices;
 using HallRentingService.WebAPI.Shared.Behaviors.Validation;
 using HallRentingService.WebAPI.Shared.Behaviors.DbTransaction;
 
@@ -68,6 +71,7 @@ public static class DIContainer
         public void UseCore()
         {
             thisApp.MigrateDatabase();
+            thisApp.SeedDatabase();
             thisApp.UseFeatures();
         }
         public void MigrateDatabase()
@@ -75,6 +79,111 @@ public static class DIContainer
             using IServiceScope scope = thisApp.Services.CreateScope();
             AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Database.Migrate();
+        }
+        public void SeedDatabase()
+        {
+            using IServiceScope scope = thisApp.Services.CreateScope();
+            AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            HallServiceEntity[] hallServices = [
+                new HallServiceEntity()
+                {
+                    Name = "Projector"
+                },
+                new HallServiceEntity()
+                {
+                    Name = "Wi-Fi"
+                },
+                new HallServiceEntity()
+                {
+                    Name = "Sound"
+                },
+            ];
+            dbContext.HallServices.AddRange(hallServices);
+            dbContext.SaveChanges();
+
+            HallEntity[] halls = [
+                new HallEntity()
+                {
+                    Name = "Hall A",
+                    Capacity = 50,
+                    PricePerHour = 2000,
+                    HallServices = [
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[0].Id,
+                            Price = 500
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[1].Id,
+                            Price = 300
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[2].Id,
+                            Price = 700
+                        },
+                    ]
+                },
+                new HallEntity()
+                {
+                    Name = "Hall B",
+                    Capacity = 100,
+                    PricePerHour = 3500,
+                    HallServices = [
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[0].Id,
+                            Price = 500
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[1].Id,
+                            Price = 300
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[2].Id,
+                            Price = 700
+                        },
+                    ]
+                },
+                new HallEntity()
+                {
+                    Name = "Hall C",
+                    Capacity = 30,
+                    PricePerHour = 1500,
+                    HallServices = [
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[0].Id,
+                            Price = 500
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[1].Id,
+                            Price = 300
+                        },
+                        new Hall_HallService_JoinEntity()
+                        {
+                            HallId = Guid.Empty,
+                            HallServiceId = hallServices[2].Id,
+                            Price = 700
+                        },
+                    ]
+                },
+            ];
+            dbContext.Halls.AddRange(halls);
+            dbContext.SaveChanges();
         }
         public void UseFeatures()
         {
