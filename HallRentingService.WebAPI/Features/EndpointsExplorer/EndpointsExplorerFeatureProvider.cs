@@ -1,8 +1,8 @@
 ﻿using Scalar.AspNetCore;
 
-namespace HallRentingService.WebAPI.Features.Scalar;
+namespace HallRentingService.WebAPI.Features.EndpointsExplorer;
 
-public sealed class ScalarFeatureProvider : FeatureProvider
+public sealed class EndpointsExplorerFeatureProvider : FeatureProvider
 {
     #region Base
     public override void AddServices(WebApplicationBuilder builder)
@@ -21,6 +21,10 @@ public sealed class ScalarFeatureProvider : FeatureProvider
             app.MapScalarApiReference(options =>
             {
                 options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+            });
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/openapi/v1.json", "HallRentingService.WebAPI");
             });
         }
     }

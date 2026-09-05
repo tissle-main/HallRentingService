@@ -6,5 +6,5 @@ IResourceBuilder<SqlServerServerResource> sqlserver = builder.AddSqlServer(AppHo
 IResourceBuilder<SqlServerDatabaseResource> database = sqlserver.AddDatabase(AppHostResources.AppDatabase);
 IResourceBuilder<ProjectResource> web = builder.AddProject<Projects.HallRentingService_WebAPI>(AppHostResources.WebAPI);
 
-web.WithReference(database).WaitFor(database).WithScalar(true).WithOpenApi(true);
+web.WithReference(database).WaitFor(database).WithScalar(true).WithSwagger(true).WithOpenApi(true);
 await builder.Build().RunAsync();
