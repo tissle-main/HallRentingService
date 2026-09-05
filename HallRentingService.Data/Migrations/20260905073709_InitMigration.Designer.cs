@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HallRentingService.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260902093727_InitMigration")]
+    [Migration("20260905073709_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace HallRentingService.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Booking.BookingEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Booking.BookingEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,8 +40,9 @@ namespace HallRentingService.Data.Migrations
                     b.Property<Guid>("HallId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("TotalPrice")
-                        .HasColumnType("real");
+                    b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -50,7 +51,7 @@ namespace HallRentingService.Data.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.HallServices.HallServiceEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.HallServices.HallServiceEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +70,7 @@ namespace HallRentingService.Data.Migrations
                     b.ToTable("HallServices");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Halls.HallEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Halls.HallEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,15 +84,16 @@ namespace HallRentingService.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<float>("PricePerHour")
-                        .HasColumnType("real");
+                    b.Property<decimal>("PricePerHour")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Halls");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Halls_HallServices.Hall_HallService_JoinEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Halls_HallServices.Hall_HallService_JoinEntity", b =>
                 {
                     b.Property<Guid>("HallId")
                         .HasColumnType("uniqueidentifier");
@@ -99,8 +101,9 @@ namespace HallRentingService.Data.Migrations
                     b.Property<Guid>("HallServiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("HallId", "HallServiceId");
 
@@ -109,9 +112,9 @@ namespace HallRentingService.Data.Migrations
                     b.ToTable("Hall_HallServices");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Booking.BookingEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Booking.BookingEntity", b =>
                 {
-                    b.HasOne("HallRentingService.Data.Entities.Halls.HallEntity", "Hall")
+                    b.HasOne("HallRentingService.Data.Features.Halls.HallEntity", "Hall")
                         .WithMany("Bookings")
                         .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -120,15 +123,15 @@ namespace HallRentingService.Data.Migrations
                     b.Navigation("Hall");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Halls_HallServices.Hall_HallService_JoinEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Halls_HallServices.Hall_HallService_JoinEntity", b =>
                 {
-                    b.HasOne("HallRentingService.Data.Entities.Halls.HallEntity", "Hall")
+                    b.HasOne("HallRentingService.Data.Features.Halls.HallEntity", "Hall")
                         .WithMany("HallServices")
                         .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HallRentingService.Data.Entities.HallServices.HallServiceEntity", "HallService")
+                    b.HasOne("HallRentingService.Data.Features.HallServices.HallServiceEntity", "HallService")
                         .WithMany("Halls")
                         .HasForeignKey("HallServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -139,12 +142,12 @@ namespace HallRentingService.Data.Migrations
                     b.Navigation("HallService");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.HallServices.HallServiceEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.HallServices.HallServiceEntity", b =>
                 {
                     b.Navigation("Halls");
                 });
 
-            modelBuilder.Entity("HallRentingService.Data.Entities.Halls.HallEntity", b =>
+            modelBuilder.Entity("HallRentingService.Data.Features.Halls.HallEntity", b =>
                 {
                     b.Navigation("Bookings");
 

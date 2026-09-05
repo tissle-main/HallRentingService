@@ -19,12 +19,12 @@ public static class DeleteHallsEndpoint
         return QueryHelpers.AddQueryString(Url, queryParams);
     }
     public static async Task<IResult> DeleteHalls(
-        [FromQuery] Guid[] ids,
+        [FromQuery] Guid[]? ids,
         [FromServices] IMediator mediator,
         CancellationToken cancellationToken
     )
     {
-        ErrorOr<Unit> response = await mediator.Send(new DeleteHallsCommand(ids), cancellationToken);
+        ErrorOr<Unit> response = await mediator.Send(new DeleteHallsCommand(ids ?? []), cancellationToken);
         return response.ToHttpResult();
     }
 

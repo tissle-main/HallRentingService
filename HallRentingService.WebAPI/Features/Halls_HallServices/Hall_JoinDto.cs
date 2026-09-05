@@ -3,5 +3,5 @@
 public sealed class Hall_JoinDto
 {
     public Guid HallId { get; set; }
-    public float Price { get; set; }
+    public decimal Price { get; set; }
 }

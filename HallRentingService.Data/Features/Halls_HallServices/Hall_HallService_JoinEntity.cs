@@ -8,7 +8,7 @@ public sealed class Hall_HallService_JoinEntity
     //Value properties
     public Guid HallId { get; set; }
     public Guid HallServiceId { get; set; }
-    public float Price { get; set; }
+    public decimal Price { get; set; }
 
     //Navigation properties
     public HallEntity? Hall { get; set; }

@@ -11,7 +11,7 @@ public sealed class Hall_HallService_JoinEntityConfiguration : IEntityTypeConfig
         builder.HasKey(je => new { je.HallId, je.HallServiceId });
         builder.HasOne(je => je.Hall).WithMany(h => h.HallServices).HasForeignKey(je => je.HallId).IsRequired().OnDelete(DeleteBehavior.Cascade);
         builder.HasOne(je => je.HallService).WithMany(hs => hs.Halls).HasForeignKey(je => je.HallServiceId).IsRequired().OnDelete(DeleteBehavior.Cascade);
-        builder.Property(je => je.Price).IsRequired();
+        builder.Property(je => je.Price).IsRequired().HasPrecision(18, 2);
     }
     #endregion
 }

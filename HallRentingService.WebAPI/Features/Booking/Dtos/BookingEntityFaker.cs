@@ -13,7 +13,7 @@ public static class BookingEntityFaker
             {
                 BookingStart = DateTime.UtcNow.AddDays(g.Random.Number(1, 5)),
                 BookingDuration = TimeSpan.FromHours(g.Random.Number(1, 10)),
-                TotalPrice = g.Random.Float(5000, 50000)
+                TotalPrice = g.Random.Decimal(5000, 50000)
             });
         }
         public Faker<BookingEntity> WithBookingStart(DateTime bookingStart)

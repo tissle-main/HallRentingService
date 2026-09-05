@@ -14,7 +14,7 @@ public static class HallEntityFaker
             {
                 Name = g.Random.String2(HallEntityConstants.NameMaxLength),
                 Capacity = g.Random.Number(1, 100),
-                PricePerHour = g.Random.Float(1000, 10000)
+                PricePerHour = g.Random.Decimal(1000, 10000)
             });
         }
         public Faker<HallEntity> WithEmptyName()

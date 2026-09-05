@@ -11,7 +11,7 @@ public static class Hall_HallService_JoinEntityFaker
         {
             return thisFaker.CustomInstantiator(g => new Hall_HallService_JoinEntity()
             {
-                Price = g.Random.Float(100, 1000)
+                Price = g.Random.Decimal(100, 1000)
             });
         }
         public Faker<Hall_HallService_JoinEntity> WithHallId(Guid hallId)

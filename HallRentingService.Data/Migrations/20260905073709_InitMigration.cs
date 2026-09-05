@@ -18,7 +18,7 @@ namespace HallRentingService.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    PricePerHour = table.Column<float>(type: "real", nullable: false)
+                    PricePerHour = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace HallRentingService.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BookingStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingDuration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    TotalPrice = table.Column<float>(type: "real", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -64,7 +64,7 @@ namespace HallRentingService.Data.Migrations
                 {
                     HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HallServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {

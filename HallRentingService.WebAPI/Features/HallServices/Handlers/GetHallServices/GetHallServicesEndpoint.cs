@@ -20,12 +20,12 @@ public static class GetHallServicesEndpoint
         return QueryHelpers.AddQueryString(Url, queryParams);
     }
     public static async Task<IResult> GetHallServices(
-        [FromQuery] Guid[] ids,
+        [FromQuery] Guid[]? ids,
         [FromServices] IMediator mediator,
         CancellationToken cancellationToken
     )
     {
-        ErrorOr<IEnumerable<HallServiceDto>> response = await mediator.Send(new GetHallServicesQuery(ids), cancellationToken);
+        ErrorOr<IEnumerable<HallServiceDto>> response = await mediator.Send(new GetHallServicesQuery(ids ?? []), cancellationToken);
         return response.ToHttpResult();
     }
 

@@ -39,7 +39,7 @@ public sealed class BookHallHandler(
             Guid[] missingIds = hallServiceIds.Except(hallServices.Select(je => je.HallServiceId)).ToArray();
             return HallServiceErrors.IdsNotFound(missingIds);
         }
-        float totalPrice = bookingPriceModifier.ApplyModifiers(hall.PricePerHour, command.BookingStart, command.BookingDuration);
+        decimal totalPrice = bookingPriceModifier.ApplyModifiers(hall.PricePerHour, command.BookingStart, command.BookingDuration);
         totalPrice += hallServices.Sum(hallService => hallService.Price);
         BookingEntity bookingEntity = new()
         {

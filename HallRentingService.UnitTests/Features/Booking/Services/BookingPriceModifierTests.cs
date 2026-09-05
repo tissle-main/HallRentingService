@@ -13,7 +13,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 10, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.Zero);
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.Zero);
 
         //Assert
         await Assert.That(result).IsEqualTo(0);
@@ -26,7 +26,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 10, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(-1));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(-1));
 
         //Assert
         await Assert.That(result).IsEqualTo(0);
@@ -42,7 +42,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, startHour, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(duration));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(duration));
 
         //Assert
         await Assert.That(result).IsEqualTo(finalPrice);
@@ -55,7 +55,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 6, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(3));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(3));
 
         //Assert
         await Assert.That(result).IsEqualTo(270);
@@ -68,7 +68,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 12, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(2));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(2));
 
         //Assert
         await Assert.That(result).IsEqualTo(230);
@@ -81,7 +81,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 18, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(5));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(5));
 
         //Assert
         await Assert.That(result).IsEqualTo(400);
@@ -94,7 +94,7 @@ public sealed class BookingPriceModifierTests
         DateTime bookingStart = new(2026, 9, 4, 6, 0, 0);
 
         //Act
-        float result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(24));
+        decimal result = Modifier.ApplyModifiers(100, bookingStart, TimeSpan.FromHours(24));
 
         //Assert
         await Assert.That(result).IsEqualTo(2300);

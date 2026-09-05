@@ -12,7 +12,7 @@ public sealed class BookingEntityConfiguration : IEntityTypeConfiguration<Bookin
         builder.ConfigureKeyedEntity();
         builder.Property(e => e.BookingStart).IsRequired();
         builder.Property(e => e.BookingDuration).IsRequired();
-        builder.Property(e => e.TotalPrice).IsRequired();
+        builder.Property(e => e.TotalPrice).IsRequired().HasPrecision(18, 2);
         builder.HasOne(b => b.Hall).WithMany(h => h.Bookings).HasForeignKey(b => b.HallId).IsRequired().OnDelete(DeleteBehavior.Restrict);
     }
     #endregion

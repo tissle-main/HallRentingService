@@ -38,7 +38,7 @@ public sealed class BookHallHandlerTests(AppFixture thisApp)
         BookHallCommand command = new Faker<BookHallCommand>().Valid().WithHallId(hall.Id).WithHallServices(
             hall.HallServices.Select(jd => jd.HallServiceId).ToList()
         );
-        float finalPrice = new BookingPriceModifier().ApplyModifiers(hall.PricePerHour, command.BookingStart, command.BookingDuration);
+        decimal finalPrice = new BookingPriceModifier().ApplyModifiers(hall.PricePerHour, command.BookingStart, command.BookingDuration);
         finalPrice += hall.HallServices.Sum(jd => jd.Price);
 
         //Act

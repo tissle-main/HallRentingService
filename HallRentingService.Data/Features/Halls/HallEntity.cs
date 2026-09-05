@@ -10,7 +10,7 @@ public sealed class HallEntity : IKeyedEntity
     public Guid Id { get; set; } //Interfaces
     public required string Name { get; set; }
     public int Capacity { get; set; }
-    public float PricePerHour { get; set; }
+    public decimal PricePerHour { get; set; }
 
     //Navigation properties
     public List<Hall_HallService_JoinEntity> HallServices { get; set; } = [];

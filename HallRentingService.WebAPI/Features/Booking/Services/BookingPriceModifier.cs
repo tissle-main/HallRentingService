@@ -3,26 +3,26 @@
 public sealed class BookingPriceModifier : IBookingPriceModifier
 {
     #region Static
-    private static float GetPriceModifier(TimeSpan timeOfDay)
+    private static decimal GetPriceModifier(TimeSpan timeOfDay)
     {
         if(timeOfDay >= TimeSpan.FromHours(6) && timeOfDay < TimeSpan.FromHours(9))
         {
-            return 0.90f;
+            return 0.90M;
         }
         if(timeOfDay >= TimeSpan.FromHours(12) && timeOfDay < TimeSpan.FromHours(14))
         {
-            return 1.15f;
+            return 1.15M;
         }
         if(timeOfDay >= TimeSpan.FromHours(18) && timeOfDay < TimeSpan.FromHours(23))
         {
-            return 0.80f;
+            return 0.80M;
         }
-        return 1f;
+        return 1M;
     }
     #endregion
 
     #region Interfaces
-    public float ApplyModifiers(float pricePerHour, DateTime bookingStart, TimeSpan bookingDuration)
+    public decimal ApplyModifiers(decimal pricePerHour, DateTime bookingStart, TimeSpan bookingDuration)
     {
         if(bookingDuration <= TimeSpan.Zero)
         {
@@ -30,7 +30,7 @@ public sealed class BookingPriceModifier : IBookingPriceModifier
         }
         DateTime bookingEnd = bookingStart.Add(bookingDuration);
         DateTime currentPeriodStart = bookingStart;
-        float finalPrice = 0;
+        decimal finalPrice = 0;
         while(currentPeriodStart < bookingEnd)
         {
             DateTime nextPeriodStart = currentPeriodStart.Date.AddDays(1);
@@ -52,7 +52,7 @@ public sealed class BookingPriceModifier : IBookingPriceModifier
             }
 
             DateTime currentPeriodEnd = nextPeriodStart < bookingEnd ? nextPeriodStart : bookingEnd;
-            float periodHours = (float)(currentPeriodEnd - currentPeriodStart).TotalHours;
+            decimal periodHours = (decimal)(currentPeriodEnd - currentPeriodStart).TotalHours;
             finalPrice += pricePerHour * periodHours * GetPriceModifier(currentPeriodStart.TimeOfDay);
             currentPeriodStart = currentPeriodEnd;
         }

@@ -2,5 +2,5 @@
 
 public interface IBookingPriceModifier
 {
-    public abstract float ApplyModifiers(float pricePerHour, DateTime bookingStart, TimeSpan bookingDuration);
+    public abstract decimal ApplyModifiers(decimal pricePerHour, DateTime bookingStart, TimeSpan bookingDuration);
 }

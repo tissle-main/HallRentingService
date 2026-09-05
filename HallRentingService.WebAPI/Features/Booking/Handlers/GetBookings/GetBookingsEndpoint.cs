@@ -20,12 +20,12 @@ public static class GetBookingsEndpoint
         return QueryHelpers.AddQueryString(Url, queryParams);
     }
     public static async Task<IResult> GetBookings(
-        [FromQuery] Guid[] ids,
+        [FromQuery] Guid[]? ids,
         [FromServices] IMediator mediator,
         CancellationToken cancellationToken
     )
     {
-        ErrorOr<IEnumerable<BookingDto>> response = await mediator.Send(new GetBookingsQuery(ids), cancellationToken);
+        ErrorOr<IEnumerable<BookingDto>> response = await mediator.Send(new GetBookingsQuery(ids ?? []), cancellationToken);
         return response.ToHttpResult();
     }
 
