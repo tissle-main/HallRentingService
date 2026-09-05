@@ -20,7 +20,7 @@ public sealed class SearchHallsHandlerTests(AppFixture thisApp)
     private Faker Faker { get; } = new();
 
     [Test]
-    public async Task Handler_ShouldReturnHalls_WithCapacityLessOrEqualToProvided()
+    public async Task Handler_ShouldReturnHalls_WithCapacityGreaterOrEqualToProvided()
     {
         //Arrange
         await thisApp.ResetDatabaseAsync(TestContext.Current!.Execution.CancellationToken);
@@ -35,7 +35,7 @@ public sealed class SearchHallsHandlerTests(AppFixture thisApp)
             );
         });
         int capacity = Faker.PickRandom(halls).Capacity;
-        halls = halls.Where(h => h.Capacity <= capacity).ToArray();
+        halls = halls.Where(h => h.Capacity >= capacity).ToArray();
         SearchHallsQuery query = new Faker<SearchHallsQuery>().Valid().WithBookingStart(DateTime.UtcNow.AddMonths(1)).WithCapacity(capacity).Generate();
 
         //Act
@@ -53,7 +53,7 @@ public sealed class SearchHallsHandlerTests(AppFixture thisApp)
     {
         //Arrange
         await thisApp.ResetDatabaseAsync(TestContext.Current!.Execution.CancellationToken);
-        SearchHallsQuery query = new Faker<SearchHallsQuery>().Valid().WithBookingStart(DateTime.UtcNow.AddMonths(1)).WithCapacity(int.MaxValue).Generate();
+        SearchHallsQuery query = new Faker<SearchHallsQuery>().Valid().WithBookingStart(DateTime.UtcNow.AddMonths(1)).WithCapacity(1).Generate();
         HallDto[] halls = await thisApp.ExecuteDbContextAsync(async db =>
         {
             List<HallEntity> seededHalls = await new Faker<HallEntity>().Valid().SeedDatabaseAsync(

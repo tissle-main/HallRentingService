@@ -16,7 +16,7 @@ public sealed class SearchHallsHandler(AppDbContext thisDbContext) : IQueryHandl
         HallEntity[] entities = await thisDbContext.Halls.AsNoTracking()
             .Include(e => e.HallServices)
             .Include(e => e.Bookings)
-            .Where(e => e.Capacity <= query.Capacity)
+            .Where(e => e.Capacity >= query.Capacity)
             .ToArrayAsync(cancellationToken);
         return entities.Where(
             e => !e.Bookings.Any(
